@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import useCurrency from "../hooks/useCurrency";
+import useCryptoCurrency from "../hooks/useCryptoCurrency";
+import axios from "axios";
 
 const Button = styled.input`
   margin-top: 20px;
@@ -21,6 +23,12 @@ const Button = styled.input`
 `;
 
 const Form = () => {
+  //useState hook to State of crypto list retrieved from external API
+  const [cryptoList, handleCryptoList] = useState([]);
+
+  //useState hook to keep track and handle form validations errors
+  const [error, handleError] = useState(false);
+
   const currencyList = [
     { code: "USD", name: "USA Dollar" },
     { code: "EUR", name: "UE Euro" },
@@ -35,9 +43,46 @@ const Form = () => {
     currencyList
   );
 
+  //custom hook call to cryptoCurrency, to load the select whith api retrieved crypto list
+  const [crypto, SelectCryptoCurrency] = useCryptoCurrency(
+    "Choose Crypto",
+    "",
+    cryptoList
+  );
+
+  //external API call, using a useEffect hook and axios
+  useEffect(() => {
+    const requestAPI = async () => {
+      const url =
+        "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
+
+      const result = await axios.get(url);
+      //save the retrived data in the local useState hook
+      handleCryptoList(result.data.Data);
+    };
+
+    requestAPI();
+  }, []);
+
+  //form submit
+  const convertCurrency = (e) => {
+    e.preventDefault();
+
+    //validate form fields
+    if ((currency === "") | (crypto === "")) {
+      handleError(true);
+      return;
+    }
+
+    //passing the data to App component
+    handleError(false);
+  };
+
   return (
-    <form>
+    <form onSubmit={convertCurrency}>
+      {error ? "there is an Error" : null}
       <SelectCurrency />
+      <SelectCryptoCurrency />
       <Button type="submit" value="Convert" />
     </form>
   );

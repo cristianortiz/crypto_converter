@@ -22,20 +22,20 @@ const Select = styled.select`
 `;
 
 //custom hook, to show a select tag configured from Form component
-const useCurrency = (label, initialState, options) => {
+const useCryptoCurrency = (label, initialState, options) => {
   //custom hook State, the updateState func is called in option tag to keep update this custom hook State
   const [state, updateState] = useState("");
 
   //htlm tag to show whit data and options as props configured in other components
-  const SelectCurrency = () => {
+  const SelectCrypto = () => {
     return (
       <Fragment>
         <Label>{label} </Label>
         <Select onChange={(e) => updateState(e.target.value)}>
           <option value="">- Select</option>
           {options.map((option) => (
-            <option key={option.code} value={option.code}>
-              {option.name}
+            <option key={option.CoinInfo.ID} value={option.CoinInfo.Name}>
+              {option.CoinInfo.Name}
             </option>
           ))}
         </Select>
@@ -44,6 +44,6 @@ const useCurrency = (label, initialState, options) => {
   };
 
   //return the hook State the UI and the function to acces and modify hook State data
-  return [state, SelectCurrency, updateState];
+  return [state, SelectCrypto, updateState];
 };
-export default useCurrency;
+export default useCryptoCurrency;
