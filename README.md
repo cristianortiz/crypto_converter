@@ -1,4 +1,4 @@
-# Cryto Currency to FIAT Converter
+# Cryto Currency to FIAT Converter in React
 
 Small project to demonstrate how to connects to an external API using axios, and retrieve cryto currrency list whit their price and other data, the user can convert any cryto from the API retrieved list into several FIAT currency
 
