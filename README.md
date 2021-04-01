@@ -1,6 +1,6 @@
 # Cryto Currency to FIAT Converter
 
-This little project connects to an external API using axios to retrieve cryto currrency list whit they price and other data, the user can convert this cryto in is value into several FIAT currency
+Small project to demonstrate how to connects to an external API using axios, and retrieve cryto currrency list whit their price and other data, the user can convert any cryto from the API retrieved list into several FIAT currency
 
 ## Highlights
 
