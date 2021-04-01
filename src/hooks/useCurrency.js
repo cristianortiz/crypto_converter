@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 
 const Label = styled.label`
   font-family: "Bebas Neue", cursive;
@@ -45,5 +46,12 @@ const useCurrency = (label, initialState, options) => {
 
   //return the hook State the UI and the function to acces and modify hook State data
   return [state, SelectCurrency, updateState];
+};
+
+//proptyopes for types check un component props
+useCurrency.propTypes = {
+  options: PropTypes.object.isRequired,
+  initialState: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
 };
 export default useCurrency;

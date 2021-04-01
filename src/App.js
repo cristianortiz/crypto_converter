@@ -4,6 +4,7 @@ import img from "./cryptomonedas.png";
 import Form from "./components/Form";
 import Conversion from "./components/Conversion";
 import axios from "axios";
+import Spinner from "./components/Spinner";
 
 const Container = styled.div`
   max-width: 900px;
@@ -47,6 +48,9 @@ function App() {
   //useState hook to keep the state of the result of request the API and render in UI
   const [result, handleResult] = useState({});
 
+  //useState hook to  keep state of load animation spinner
+  const [load, handleLoad] = useState(false);
+
   //hook to make the convertion and keep updated the values in UI
   useEffect(() => {
     const convertToCrypto = async () => {
@@ -55,12 +59,24 @@ function App() {
       const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${crypto}&tsyms=${currency}`;
       const result = await axios.get(url);
 
-      //put the API response in a useState hook
-      handleResult(result.data.DISPLAY[crypto][currency]);
+      //change state load to show the spinner
+      handleLoad(true);
+
+      //time Out to hide the spinner
+      setTimeout(() => {
+        //hide the spinner aftter 1.5 seg
+        handleLoad(false);
+
+        //put the API response in a useState hook, after spinner is hide
+        handleResult(result.data.DISPLAY[crypto][currency]);
+      }, 1500);
     };
 
     convertToCrypto();
   }, [currency, crypto]);
+
+  //conditional statement to toggle spinner/Conversion component
+  const component = load ? <Spinner /> : <Conversion result={result} />;
 
   return (
     <Container>
@@ -70,7 +86,7 @@ function App() {
       <div>
         <Heading>Convert Crypto Currency</Heading>
         <Form handleCrypto={handleCrypto} handleCurrency={handleCurrency} />
-        <Conversion result={result} />
+        {component}
       </div>
     </Container>
   );

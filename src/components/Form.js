@@ -4,6 +4,7 @@ import useCurrency from "../hooks/useCurrency";
 import useCryptoCurrency from "../hooks/useCryptoCurrency";
 import Error from "../components/Error";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const Button = styled.input`
   margin-top: 20px;
@@ -93,5 +94,8 @@ const Form = ({ handleCurrency, handleCrypto }) => {
     </form>
   );
 };
-
+Form.propTypes = {
+  handleCurrency: PropTypes.func.isRequired,
+  handleCrypto: PropTypes.func.isRequired,
+};
 export default Form;

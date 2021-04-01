@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 
 const Label = styled.label`
   font-family: "Bebas Neue", cursive;
@@ -34,7 +35,7 @@ const useCryptoCurrency = (label, initialState, options) => {
         <Select onChange={(e) => updateState(e.target.value)}>
           <option value="">- Select</option>
           {options.map((option) => (
-            <option key={option.CoinInfo.ID} value={option.CoinInfo.Name}>
+            <option key={option.CoinInfo.Id} value={option.CoinInfo.Name}>
               {option.CoinInfo.Name}
             </option>
           ))}
@@ -45,5 +46,11 @@ const useCryptoCurrency = (label, initialState, options) => {
 
   //return the hook State the UI and the function to acces and modify hook State data
   return [state, SelectCrypto, updateState];
+};
+
+useCryptoCurrency.propTypes = {
+  options: PropTypes.object.isRequired,
+  initialState: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
 };
 export default useCryptoCurrency;
