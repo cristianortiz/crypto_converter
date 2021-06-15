@@ -94,8 +94,8 @@ const Form = ({ handleCurrency, handleCrypto }) => {
     </form>
   );
 };
-Form.propTypes = {
-  handleCurrency: PropTypes.func.isRequired,
-  handleCrypto: PropTypes.func.isRequired,
-};
+/* Form.propTypes = {
+  handleCurrency: PropTypes.func,
+  handleCrypto: PropTypes.func,
+}; */
 export default Form;

@@ -8,3 +8,8 @@ Small project to demonstrate how to connects to an external API using axios, and
 - Connect to external API using Axios to very concise and clean code
 - UseEffect hook to handle the API request and keep the UI data updated
 - Proptypes to type check of the props received in components
+
+### Testing
+
+- use jest an react testing library to test the component
+- create mock files to simulate data retrieved from the API without actually request it
